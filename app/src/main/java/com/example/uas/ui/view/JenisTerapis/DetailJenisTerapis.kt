@@ -37,4 +37,24 @@ fun DetailJenisTerapisView(
                 .padding(innerPadding),
             contentAlignment = Alignment.Center
         ) {
-    
+            when (uiState) {
+                is DetailJenisTerapisUiState.Loading -> {
+                    CircularProgressIndicator()
+                }
+                is DetailJenisTerapisUiState.Success -> {
+                    val jenisTerapis = (uiState as DetailJenisTerapisUiState.Success).jenisTerapis
+                    DetailContent(jenisTerapis)
+                }
+                is DetailJenisTerapisUiState.Error -> {
+                    Text(
+                        text = (uiState as DetailJenisTerapisUiState.Error).message,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.error,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+        }
+    }
+}
+
