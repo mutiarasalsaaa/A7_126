@@ -37,5 +37,14 @@ fun CostumeTopAppBar(
                 modifier = Modifier.clickable { onRefresh() }
             )
         },
-
+        modifier = modifier.offset(y = (-50).dp),
+        scrollBehavior = scrollBehavior,
+        navigationIcon = {
+            if (canNavigateBack) {
+                IconButton(onClick = navigateUp) {
+                    Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = null)
+                }
+            }
+        }
+    )
 }
