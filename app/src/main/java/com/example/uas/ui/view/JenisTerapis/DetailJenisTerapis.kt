@@ -71,4 +71,10 @@ fun DetailContent(jenisTerapis: com.example.uas.model.JenisTerapis) {
             text = "ID: ${jenisTerapis.id_jenis_terapis}",
             style = MaterialTheme.typography.titleMedium
         )
-    
+        Text(
+            text = "Nama Jenis Terapis: ${jenisTerapis.nama_jenis_terapi}",
+            style = MaterialTheme.typography.bodyLarge
+        )
+        // Tambahkan informasi lain dari model `JenisTerapis` sesuai kebutuhan
+    }
+}
