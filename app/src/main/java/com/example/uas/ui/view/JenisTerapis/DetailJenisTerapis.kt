@@ -30,4 +30,11 @@ fun DetailJenisTerapisView(
                 navigateUp = navigateBack
             )
         }
+    ) { innerPadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
+            contentAlignment = Alignment.Center
+        ) {
     
