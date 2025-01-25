@@ -27,4 +27,15 @@ fun CostumeTopAppBar(
     scrollBehavior: TopAppBarScrollBehavior ?= null,
     navigateUp: () -> Unit = {},
     onRefresh: () -> Unit = {},
-)
+){
+    CenterAlignedTopAppBar(
+        title = { Text(title) },
+        actions = {
+            Icon(
+                imageVector = Icons.Default.Refresh,
+                contentDescription = "",
+                modifier = Modifier.clickable { onRefresh() }
+            )
+        },
+
+}
