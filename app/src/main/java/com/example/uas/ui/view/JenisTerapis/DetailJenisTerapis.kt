@@ -58,3 +58,13 @@ fun DetailJenisTerapisView(
     }
 }
 
+@Composable
+fun DetailContent(jenisTerapis: com.example.uas.model.JenisTerapis) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+   
