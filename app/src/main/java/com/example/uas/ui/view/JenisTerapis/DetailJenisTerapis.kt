@@ -67,4 +67,8 @@ fun DetailContent(jenisTerapis: com.example.uas.model.JenisTerapis) {
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-   
+        Text(
+            text = "ID: ${jenisTerapis.id_jenis_terapis}",
+            style = MaterialTheme.typography.titleMedium
+        )
+    
