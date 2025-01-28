@@ -3,19 +3,17 @@ package com.example.uas.ui.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -48,11 +46,14 @@ fun HomeMenuView(
     ) {
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Logo aplikasi tanpa header putih
+        // Logo aplikasi berbentuk bulat
         Image(
             painter = painterResource(id = R.drawable.logoterapi),
             contentDescription = "App Logo",
-            modifier = Modifier.size(200.dp)
+            modifier = Modifier
+                .size(200.dp)
+                .clip(CircleShape)
+                .background(Color.White)
         )
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -61,7 +62,6 @@ fun HomeMenuView(
         MenuCardWithButtons(
             title = "Menu Utama",
             description = "Silahkan pilih salah satu menu yang anda butuhkan untuk melanjutkan",
-            icon = Icons.Filled.ShoppingCart,
             buttons = listOf("Jenis Terapi", "Pasien", "Sesi Terapi", "Terapis"),
             onClick = onJenisClick
         )
@@ -74,7 +74,6 @@ fun HomeMenuView(
 fun MenuCardWithButtons(
     title: String,
     description: String,
-    icon: ImageVector,
     buttons: List<String>,
     onClick: () -> Unit
 ) {
@@ -94,13 +93,6 @@ fun MenuCardWithButtons(
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                modifier = Modifier.size(48.dp),
-                tint = Color(0xFF3700B3)
-            )
-
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
