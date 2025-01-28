@@ -5,7 +5,6 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface JenisTerapisService {
-
     @Headers(
         "Accept: application/json",
         "Content-Type: application/json"
@@ -14,23 +13,17 @@ interface JenisTerapisService {
     suspend fun getJenisTerapis(): List<JenisTerapis>
 
     @GET("getbyJenisTerapis.php/{id_jenis_terapis}")
-    suspend fun getJenisTerapisById(
-        @Path("id_jenis_terapis") idJenisTerapis: Int
-    ): JenisTerapis
+    suspend fun getJenisTerapisById(@Query("id_jenis_terapis") id_jenis_terapis: String): JenisTerapis
 
     @POST("insertJenisTerapis.php")
-    suspend fun insertJenisTerapis(
-        @Body jenisTerapis: JenisTerapis
-    ): Response<Void>
+    suspend fun insertJenisTerapis(@Body jenisTerapis: JenisTerapis)
 
     @PUT("editJenisTerapis.php/{id_jenis_terapis}")
     suspend fun updateJenisTerapis(
-        @Path("id_jenis_terapis") idJenisTerapis: Int,
+        @Query("id_jenis_terapis") id_jenis_terapis: String,
         @Body jenisTerapis: JenisTerapis
-    ): Response<Void>
+    )
 
     @DELETE("deleteJenisTerapis.php/{id_jenis_terapis}")
-    suspend fun deleteJenisTerapis(
-        @Path("id_jenis_terapis") idJenisTerapis: Int
-    ): Response<Void>
+    suspend fun deleteJenisTerapis(@Query("id_jenis_terapis") id_jenis_terapis: String): Response<Void>
 }

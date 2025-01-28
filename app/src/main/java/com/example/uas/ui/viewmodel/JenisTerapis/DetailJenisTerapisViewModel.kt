@@ -1,55 +1,43 @@
 package com.example.uas.ui.viewmodel.JenisTerapis
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.uas.Repository.JenisTerapisRepository
 import com.example.uas.model.JenisTerapis
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import com.example.uas.ui.view.JenisTerapis.DestinasiDetailJenisTerapis
 import kotlinx.coroutines.launch
+import java.io.IOException
 
-sealed class DetailJenisTerapisUiState {
-    object Loading : DetailJenisTerapisUiState()
-    data class Success(val jenisTerapis: JenisTerapis) : DetailJenisTerapisUiState()
-    data class Error(val message: String) : DetailJenisTerapisUiState()
+sealed class DetailJnsUiState{
+    data class Success(val jenisterapi: JenisTerapis) : DetailJnsUiState()
+    object Error : DetailJnsUiState()
+    object Loading : DetailJnsUiState()
 }
 
 class DetailJenisTerapisViewModel(
-    private val repository: JenisTerapisRepository,
-    private val idJenis: String
+    savedStateHandle: SavedStateHandle,
+    private val jenisterapiRepository: JenisTerapisRepository
 ) : ViewModel() {
 
-    private val _detailJenisTerapisUiState = MutableStateFlow<DetailJenisTerapisUiState>(DetailJenisTerapisUiState.Loading)
-    val detailJenisTerapisUiState: StateFlow<DetailJenisTerapisUiState> = _detailJenisTerapisUiState
+    private val id_jenis_terapis: String = checkNotNull(savedStateHandle[DestinasiDetailJenisTerapis.id_jenis_terapis])
+    var detailJnsUiState: DetailJnsUiState by mutableStateOf(DetailJnsUiState.Loading)
+        private set
 
     init {
-        getJenisTerapisById()
+        getJnsById()
     }
 
-    fun getJenisTerapisById() {
+    fun getJnsById(){
         viewModelScope.launch {
-            _detailJenisTerapisUiState.value = DetailJenisTerapisUiState.Loading
-            try {
-                val jenisTerapis = repository.getJenisTerapisById(idJenis)
-                _detailJenisTerapisUiState.value = DetailJenisTerapisUiState.Success(jenisTerapis)
-            } catch (e: Exception) {
-                _detailJenisTerapisUiState.value = DetailJenisTerapisUiState.Error("Terjadi kesalahan: ${e.message}")
-            }
-        }
-    }
-
-    companion object {
-        fun provideFactory(
-            repository: JenisTerapisRepository,
-            idJenis: String
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                if (modelClass.isAssignableFrom(DetailJenisTerapisViewModel::class.java)) {
-                    return DetailJenisTerapisViewModel(repository, idJenis) as T
-                }
-                throw IllegalArgumentException("Unknown ViewModel class")
+            detailJnsUiState = DetailJnsUiState.Loading
+            detailJnsUiState = try {
+                DetailJnsUiState.Success(jenisterapi = jenisterapiRepository.getJenisTerapisById(id_jenis_terapis))
+            } catch (e: IOException) {
+                DetailJnsUiState.Error
             }
         }
     }

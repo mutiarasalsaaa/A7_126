@@ -16,7 +16,7 @@ interface SesiTerapiService {
 
     @GET("getSesiTerapiById.php/{id_sesi}")
     suspend fun getSesiTerapiById(
-        @Path("id_sesi") idSesi: Int
+        @Path("id_sesi") idSesi: String
     ): SesiTerapis
 
     @POST("insertSesiTerapi.php")
@@ -26,12 +26,12 @@ interface SesiTerapiService {
 
     @PUT("editSesiTerapi.php/{id_sesi}")
     suspend fun updateSesiTerapi(
-        @Path("id_sesi") idSesi: Int,
+        @Path("id_sesi") idSesi: String,
         @Body sesiTerapi: SesiTerapis
     ): Response<Void>
 
     @DELETE("deleteSesiTerapi.php/{id_sesi}")
     suspend fun deleteSesiTerapi(
-        @Path("id_sesi") idSesi: Int
+        @Path("id_sesi") idSesi: String
     ): Response<Void>
 }

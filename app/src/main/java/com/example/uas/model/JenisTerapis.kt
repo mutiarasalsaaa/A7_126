@@ -7,5 +7,5 @@ data class JenisTerapis(
 
     val id_jenis_terapis: String,
     val nama_jenis_terapi: String,
-    val deskripsi_terapis: String,
+    val deskripsi_terapi: String,
 )

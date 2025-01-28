@@ -15,7 +15,7 @@ interface TerapisService {
 
     @GET("getTerapisById.php/{id_terapis}")
     suspend fun getTerapisById(
-        @Path("id_terapis") idTerapis: Int
+        @Path("id_terapis") idTerapis: String
     ): Terapis
 
     @POST("insertTerapis.php")
@@ -25,12 +25,12 @@ interface TerapisService {
 
     @PUT("editTerapis.php/{id_terapis}")
     suspend fun updateTerapis(
-        @Path("id_terapis") idTerapis: Int,
+        @Path("id_terapis") idTerapis: String,
         @Body terapis: Terapis
     ): Response<Void>
 
     @DELETE("deleteTerapis.php/{id_terapis}")
     suspend fun deleteTerapis(
-        @Path("id_terapis") idTerapis: Int
+        @Path("id_terapis") idTerapis: String
     ): Response<Void>
 }
